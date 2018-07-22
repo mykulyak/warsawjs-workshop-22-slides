@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>WarsawJS Workshop #22 - testy jednostkowe</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Plan warsztatów</h2>
+					<ol>
+						<li>Organizacyjne</li>
+						<li>Wprowadzenie do testowania</li>
+						<li>Wprowadzenie do frameworku <a href="https://jestjs.io/">Jest</a></li>
+						<li>Projekt "Wirtualny Kantor"</li>
+						<li>Integracja z <a href="https://travis-ci.org/">Travis CI</a></li>
+						<li>Setup testów we własnym projekcie</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Rodzaje testów</h2>
+					<ul>
+						<li>jednostkowe</li>
+						<li>integracyjne</li>
+						<li>end-to-end</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Testy jednostkowe</h2>
+					<p>
+						Testuje <em>małą jednostkę</em> oprogramowania (funkcję, klasę) w <em>odosobnieniu</em>
+						od innych części.
+					</p>
+				</section>
+
+				<section>
+					<h2>Testy integracyjne</h2>
+					<p>
+						To testy które wykonujemy w celu <em>wykrycia błędów w interfejsach i interakcjach
+						pomiędzy</em> modułami.
+					</p>
+				</section>
+
+				<section>
+					<h2>Przykład z życia</h2>
+					<img src="images/unit-vs-integration.gif" />
+				</section>
+
+				<section>
+					<h2>Testy end-to-end</h2>
+					<p>Weryfikują działanie oprogramowania z <em>punktu widzenia końcowego użytkownika</em></p>
+				</section>
+
+				<section>
+					<h2>Piramida testów Cohn-a</h2>
+					<img src="images/test-pyramid.png" height="500" />
+				</section>
+
+				<section>
+					<h2>Na co poświęcać uwagę</h2>
+					<ul>
+						<li>70% - jednostkowe</li>
+						<li>20% - integracyjne</li>
+						<li>10% - end-to-end</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Dlaczego warto je pisać ?</h2>
+					<ul>
+						<li>upewniamy się że nasz program działa poprawnie</li>
+						<li>chronimy się przed regresjami (błędami powstającymi podczas modyfikacji kodu)</li>
+						<li>gwarantujemy że program spełnia oczekiwania użytkownika</li>
+						<li>dobrze napisane testy dokumentują kod</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Dlaczego nie piszemy testów ?</h2>
+					<ul>
+						<li>nie mamy czasu</li>
+						<li>szef lub klient nie pozwala</li>
+						<li>nie wiemy od czego zacząć</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Jakie powinny być testy jednostkowe ?</h2>
+					<ul>
+						<li>proste w napisaniu</li>
+						<li>czytelne</li>
+						<li>niezawodne (wywala się tylko jeśli jest bug)</li>
+						<li>szybkie (< 20 sek)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Anatomia testu jednostkowego</h2>
+					<ol>
+						<li>przygotuj środowisko</li>
+						<li>wywołaj akcję</li>
+						<li>zweryfikuj wynik</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>W jaki sposób weryfikujemy wyniki</h2>
+					<ul>
+						<li>sprawdzamy stan (wartości zmiennych są prawidłowe ?)</li>
+						<li>sprawdzamy działanie (np. wywołanie innych metod)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Co trzeba testować ?</h2>
+					<ul>
+						<li>przede wszystkim logikę biznesową</li>
+						<li>happy path</li>
+						<li>przypadki brzegowe</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Czego nie trzeba testować ?</h2>
+					<ul>
+						<li>zbyt prostych metod (np. get/set)</li>
+						<li>bibliotek zewnętrznych</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Pokrycie kodu - co to i po co to nam ?</h2>
+					<ul>
+						<li>jest to % linijek kodu wzkonywanzch podczas testów</li>
+						<li>żeby wiedzieć jaki kolejny test napisać :)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Mocki, szpiegi - co to jest ?</h2>
+					<p></p>
+				</section>
+
+				<section>
+					<h2>Jak pisać testowalny kod ?</h2>
+					<ul>
+						<li>stosować <a href="https://pl.wikipedia.org/wiki/Zasada_jednej_odpowiedzialno%C5%9Bci">zasadę jednej odpowiedzialności</a></li>
+						<li>ograniczać ilość efektów ubocznych</li>
+						<li>nie polegać na globalnych danych</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>TDD</h2>
+					<ul>
+						<li>skrót od Test-Driven Development</li>
+						<li>skupia się na procesie napisania testów</li>
+						<li>najpierw test, potem implementacja (i tak w kółko :))</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Krąg życia TDD</h2>
+					<img src="images/tdd-circle-of-life.png" height="500" />
+				</section>
+
+				<section>
+					<h2>BDD</h2>
+					<ul>
+						<li>skrót od Behaviour-driven development</li>
+						<li>definiuje strukturę formułowania wymagań</li>
+						<li>dopełnia się z TDD</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>BDD, Given-When-Then</h2>
+					<ol>
+						<li>Given - ustawia kontekst (np. określa wartości początkowe)</li>
+						<li>When - opisuje akcję lub zdarzenie</li>
+						<li>Then - określa oczekiwane wynikach</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Framework Jest</h2>
+					<ul>
+						<li>prosty w użyciu</li>
+						<li>praktycznie nie wymaga konfiguracji</li>
+						<li>ma w sobie praktycznie wszystko - runner, strukturę, asercje</li>
+						<li>rozszerzalny</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Inne frameworki i biblioteki</h2>
+					<ul>
+						<li><a href="https://mochajs.org/">Mocha</a></li>
+						<li><a href="https://jasmine.github.io/">Jasmine</a></li>
+						<li><a href="http://www.chaijs.com/">Chai</a></li>
+						<li><a href="http://sinonjs.org/">Sinon.js</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
